@@ -36,26 +36,67 @@ done
 # CHECKS IF THERE IS NOT AN EQUAL AMOUNT OF PIZZA
 # ADDS ANOTHER BOX IF THERE ARE NOT AT LEAST TWO SLICES FOR EACH PERSON
 PIZZA_DELIV=$((((NUM_PPL)*2)/SLICES))
-if [ $((((NUM_PPL)*2)%SLICES)) -ge 1 ]
-then
-  echo -e "You are going to need $(( PIZZA_DELIV + 1 )) boxes\nAnd you may still have some left over"
-else
-  echo "You are going to need exactly $PIZZA_DELIV boxes of pizza"
-fi
+ if [[ $((((NUM_PPL)*2)%SLICES)) -ge 1 ]]
+# if [[$NUM_PPL * 2] %SLICES -ge 1];
+   then
+    echo -e "You are going to need $(( PIZZA_DELIV + 1 )) boxes\nAnd you may still have some left over"
+ else
+   echo "You are going to need exactly $PIZZA_DELIV boxes of pizza"
+ fi
 
-
-# verifies if user wants to continue
-: '
-read -p "Do you want this $BOX_SIZE pizza?" VERFY
+ myToppings() {
+   # append selections to array, if array is certain length, stop the loop
+   # while array.length < 3:
+   # do
+   # if
+   # fi
+   # done
+top_items=()
+echo "What toppings would you like?"
+select OPTION in Pepperoni Sausage Extra-Cheese
 do
-  case $VERFY in
-    [yY] | [yY][eE][sS])
-      echo "Ok"
-      continue
-      ;;
-    [nN] | [nN][oO])
-      echo "Ok bye"
-      break
+  case $OPTION in
+     Pepperoni )
+      echo "Pepperoni was added, would you like any other toppings?"
+      top_items+=("Pepperoni")
+       ;;
+     Sausage )
+      echo "Sausage was added, would you like any other toppings?"
+      top_items+=("Sausage")
+       ;;
+     Extra-Cheese )
+      echo "Extra cheese was added, would you like any other toppings?"
+      top_items+=("Extra")
+       ;;
   esac
+  echo -e "Your toppings are: "$top_items
 done
-'
+}
+
+read -p "Do you want this pizza?" VERFY
+case $VERFY in
+  [yY] | [yY][eE][sS])
+    echo "Ok"
+    myToppings
+    ;;
+  [nN] | [nN][oO])
+    echo "Ok bye"
+esac
+
+
+
+
+
+# some function that records user input from a selection
+# another select/case statement ?
+#
+<<'COMMENT'
+REFERENCE
+-----------
+FUNCTION FORMAT
+
+myFunction() {
+  expression
+}
+echo $(myFunction)
+COMMENT
