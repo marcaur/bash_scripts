@@ -49,16 +49,17 @@ while [ $COUNTME -lt 1 ]; do
     continue
   fi
 done
-echo "You spend $DYWEEK days at work a week"
 
 # VACATION TO BE SUBTRACTED FROM TOTAL TIME
-VDAY=$VT*7 # HOW MANY DAYS OFF DO YOU GET A YEAR
+VDAY=$((VT*7)) #HOW MANY DAYS OFF DO YOU GET A YEAR
 DYYEAR=$((DYWEEK*52-VDAY))
-echo "You spend $DYYEAR days a year at work"
+echo -e "You spend $DYYEAR days a year at work\nWith only $VDAY days of vacation"
 
-#LENGTH OF TIME YOU HAVE  BEEN WORKING
-#read -p "How long have you been working? (in years)" SPAN
-
-
-
-#echo -e "You have been working for $SPAN years"
+# LENGTH OF TIME YOU HAVE  BEEN WORKING
+read -p "How long have you been working? (in years)" SPAN
+echo -e "You have been working for $SPAN years"
+# hours spent over the course of work history
+TOTALHRS=$((SPAN*HRYEAR))
+MYHRS=$((8760-HRYEAR))
+echo -e "You have spent $TOTALHRS at work over the last $SPAN years"
+echo -e "That means you have had only $((MYHRS*SPAN)) to yourself"
